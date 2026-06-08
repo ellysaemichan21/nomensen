@@ -2,7 +2,8 @@
 
 namespace App\Filament\Resources\Greetings\Schemas;
 
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Schemas\Schema;
 
 class GreetingForm
@@ -11,10 +12,14 @@ class GreetingForm
     {
         return $schema
             ->components([
-                Textarea::make('content')
+                RichEditor::make('content')
                     ->required()
                     ->columnSpanFull(),
-                Textarea::make('image')
+                FileUpload::make('image')
+                    ->image()
+                    ->disk('public')
+                    ->directory('greetings')
+                    ->visibility('public')
                     ->required()
                     ->columnSpanFull(),
             ]);

@@ -18,8 +18,12 @@ class FooterResource extends Resource
 {
     protected static ?string $model = Footer::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cog-6-tooth';
+    protected static ?string $navigationLabel = 'Pengaturan Footer';
+    protected static ?string $modelLabel = 'Footer';
+    protected static ?string $pluralModelLabel = 'Pengaturan Footer';
+    protected static string|\UnitEnum|null $navigationGroup = 'Konfigurasi';
+    protected static ?int $navigationSort = 1;
     protected static ?string $recordTitleAttribute = 'Footer';
 
     public static function form(Schema $schema): Schema

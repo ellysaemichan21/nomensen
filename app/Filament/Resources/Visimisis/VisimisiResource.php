@@ -18,8 +18,12 @@ class VisimisiResource extends Resource
 {
     protected static ?string $model = Visimisi::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-eye';
+    protected static ?string $navigationLabel = 'Visi & Misi';
+    protected static ?string $modelLabel = 'Visi & Misi';
+    protected static ?string $pluralModelLabel = 'Visi & Misi';
+    protected static string|\UnitEnum|null $navigationGroup = 'Profil & Informasi';
+    protected static ?int $navigationSort = 4;
     protected static ?string $recordTitleAttribute = 'Visimisi';
 
     public static function form(Schema $schema): Schema

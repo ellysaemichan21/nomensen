@@ -14,6 +14,9 @@ class FooterForm
             ->components([
                 FileUpload::make('image')
                     ->image()
+                    ->disk('public')
+                    ->directory('footers')
+                    ->visibility('public')
                     ->required(),
                 TextInput::make('link_instagram')
                     ->required(),

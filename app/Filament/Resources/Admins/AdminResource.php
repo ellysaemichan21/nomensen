@@ -18,8 +18,12 @@ class AdminResource extends Resource
 {
     protected static ?string $model = Admin::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-circle';
+    protected static ?string $navigationLabel = 'Admin / Staf';
+    protected static ?string $modelLabel = 'Admin';
+    protected static ?string $pluralModelLabel = 'Admin / Staf';
+    protected static string|\UnitEnum|null $navigationGroup = 'Akademik & SDM';
+    protected static ?int $navigationSort = 4;
     protected static ?string $recordTitleAttribute = 'Admin';
 
     public static function form(Schema $schema): Schema

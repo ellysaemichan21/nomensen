@@ -18,8 +18,12 @@ class LectureResource extends Resource
 {
     protected static ?string $model = Lecture::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-academic-cap';
+    protected static ?string $navigationLabel = 'Dosen';
+    protected static ?string $modelLabel = 'Dosen';
+    protected static ?string $pluralModelLabel = 'Dosen';
+    protected static string|\UnitEnum|null $navigationGroup = 'Akademik & SDM';
+    protected static ?int $navigationSort = 2;
     protected static ?string $recordTitleAttribute = 'Lecturer';
 
     public static function form(Schema $schema): Schema

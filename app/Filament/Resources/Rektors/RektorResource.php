@@ -18,8 +18,12 @@ class RektorResource extends Resource
 {
     protected static ?string $model = Rektor::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-star';
+    protected static ?string $navigationLabel = 'Pimpinan';
+    protected static ?string $modelLabel = 'Pimpinan';
+    protected static ?string $pluralModelLabel = 'Pimpinan';
+    protected static string|\UnitEnum|null $navigationGroup = 'Akademik & SDM';
+    protected static ?int $navigationSort = 1;
     protected static ?string $recordTitleAttribute = 'Rektor';
 
     public static function form(Schema $schema): Schema

@@ -15,7 +15,8 @@ class FootersTable
     {
         return $table
             ->columns([
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                    ->disk('public'),
                 TextColumn::make('link_instagram')
                     ->searchable(),
                 TextColumn::make('link_youtube')

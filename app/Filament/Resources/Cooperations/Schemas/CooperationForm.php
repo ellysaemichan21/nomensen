@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Cooperations\Schemas;
 
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Schema;
 
 class CooperationForm
@@ -11,7 +11,11 @@ class CooperationForm
     {
         return $schema
             ->components([
-                Textarea::make('image')
+                FileUpload::make('image')
+                    ->image()
+                    ->disk('public')
+                    ->directory('cooperations')
+                    ->visibility('public')
                     ->required()
                     ->columnSpanFull(),
             ]);

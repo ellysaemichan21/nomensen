@@ -2,7 +2,8 @@
 
 namespace App\Filament\Resources\Facilities\Schemas;
 
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Schemas\Schema;
 
 class FacilityForm
@@ -11,10 +12,14 @@ class FacilityForm
     {
         return $schema
             ->components([
-                Textarea::make('content')
+                RichEditor::make('content')
                     ->required()
                     ->columnSpanFull(),
-                Textarea::make('image')
+                FileUpload::make('image')
+                    ->image()
+                    ->disk('public')
+                    ->directory('facilities')
+                    ->visibility('public')
                     ->required()
                     ->columnSpanFull(),
             ]);

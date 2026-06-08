@@ -18,8 +18,12 @@ class AboutmeResource extends Resource
 {
     protected static ?string $model = Aboutme::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-information-circle';
+    protected static ?string $navigationLabel = 'Profil Universitas';
+    protected static ?string $modelLabel = 'Profil';
+    protected static ?string $pluralModelLabel = 'Profil Universitas';
+    protected static string|\UnitEnum|null $navigationGroup = 'Profil & Informasi';
+    protected static ?int $navigationSort = 2;
     protected static ?string $recordTitleAttribute = 'Aboutme';
 
     public static function form(Schema $schema): Schema

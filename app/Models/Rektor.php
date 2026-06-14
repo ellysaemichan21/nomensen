@@ -9,6 +9,7 @@ class Rektor extends Model
     protected $fillable = [
         'nama',
         'jabatan',
+        'periode',
         'image',
     ];
 }

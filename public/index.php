@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
+set_time_limit(0); // Prevent PHP 30-second timeout for large uploads
+
 define('LARAVEL_START', microtime(true));
 
 // Determine if the application is in maintenance mode...

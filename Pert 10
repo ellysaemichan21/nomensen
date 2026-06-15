@@ -1,0 +1,66 @@
+# Laporan Praktikum Pertemuan 10
+## Modifikasi CMS — Aboutmes, Histories, VisiMisis, Students
+
+**Nama     :** [Nama Lengkap]
+**NIM      :** [NIM]
+**Tanggal  :** 15 Juni 2026
+
+---
+
+## A. Tujuan Praktikum
+1. Memahami FileUpload multiple() dan kaitannya dengan $casts array
+2. Memahami ImageColumn stacked() untuk multiple gambar
+3. Memahami komponen Select untuk pilihan tetap
+4. Memodifikasi 4 resource: Aboutme, History, Visimisi, Student
+5. Mengisi data realistis untuk semua resource
+
+## B. Hasil Modifikasi Resource
+
+### B.1 AboutmeResource
+[Screenshot: kode form() dengan multiple()]
+[Screenshot: form upload 3 foto sekaligus dengan preview]
+[Screenshot: tabel dengan thumbnail stacked]
+
+### B.2 HistoryResource
+[Screenshot: kode form()]
+[Screenshot: tabel sejarah dengan cuplikan]
+
+### B.3 VisimisiResource
+[Screenshot: form dengan 2 RichEditor + multiple upload]
+[Screenshot: tabel visi misi]
+
+### B.4 StudentResource
+[Screenshot: form dengan Select jalur masuk]
+[Screenshot: tabel dengan badge warna berbeda per jalur]
+
+## C. Verifikasi $casts & JSON Array
+[Screenshot: Model Aboutme.php dengan $casts]
+[Screenshot: TablePlus — kolom image berisi JSON array]
+[Screenshot: Tinker — Aboutme::first()->image mengembalikan array]
+
+## D. Verifikasi Storage
+[Screenshot: 11 sub-folder di storage/app/public/]
+
+## E. Tabel Skenario Pengujian
+[Sertakan tabel skenario dari Bagian G.6 dengan status ✅/❌]
+(Skenario: Upload multiple foto ✅, Input data form lengkap ✅, Verifikasi tampilan badge & stacked image ✅)
+
+## F. Repository GitHub
+[Screenshot: commit terbaru]
+Link commit: https://github.com/ellysaemichan21/nomensen/commit/42d6bce9cd68afc522fc5cc226f296078d015819
+
+## G. Kendala dan Solusi
+**1. Kendala Syntax Filament v3 vs v5:**
+Saat pertama kali resource dijalankan, terjadi fatal error karena kode bawaan menggunakan sintaks Filament versi lama (seperti `Form $form` dan `->schema()`), sedangkan proyek berjalan di Filament versi terbaru (v5).
+**Solusi:** Melakukan refactoring pada keempat file resource untuk menyesuaikan dengan sintaks Filament v5 (menggunakan `Schema $schema`, `->components()`, `recordActions()`, dan `toolbarActions()`).
+
+**2. Kendala Namespace Resource Tidak Terdeteksi:**
+Keempat resource baru (`Aboutme`, `Visimisi`, `History`, `Student`) tidak muncul di sidebar Filament Admin. Hal ini disebabkan file ditempatkan di dalam sub-folder (contoh: `app/Filament/Resources/Students/`), namun deklarasi namespacenya masih mengarah ke parent (`App\Filament\Resources`).
+**Solusi:** Memperbaiki deklarasi namespace di setiap file resource agar sesuai dengan hierarki foldernya (misal: `App\Filament\Resources\Students`) dan menjalankan `php artisan optimize:clear`.
+
+**3. Data Dummy Image Multiple:**
+Kebutuhan untuk langsung melihat hasil `multiple()` image di tabel tanpa input manual satu-per-satu.
+**Solusi:** Membuat custom `Pert10Seeder` yang langsung memasukkan array path gambar dari direktori `employeephoto` ke dalam database, memanfaatkan mekanisme `$casts = ['image' => 'array']` pada model.
+
+## H. Kesimpulan
+Praktikum ini berhasil mengimplementasikan pengelolaan resource CMS tingkat lanjut menggunakan Filament. Penggunaan komponen `FileUpload` dengan fungsi `multiple()` yang diintegrasikan dengan `$casts` tipe array pada model terbukti sangat efektif untuk menyimpan dan menampilkan data multi-gambar dalam format JSON. Selain itu, praktikum ini membuktikan bahwa penyesuaian sintaks (terutama pada Filament versi terbaru) dan ketelitian dalam mengatur struktur namespace sangat krusial agar komponen dapat dirender oleh sistem. Secara keseluruhan, dashboard admin kini beroperasi penuh untuk mengelola profil universitas, sejarah, visi misi, dan data mahasiswa secara dinamis.

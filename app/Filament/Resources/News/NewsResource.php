@@ -5,14 +5,16 @@ namespace App\Filament\Resources\News;
 use App\Filament\Resources\News\Pages\CreateNews;
 use App\Filament\Resources\News\Pages\EditNews;
 use App\Filament\Resources\News\Pages\ListNews;
-use App\Filament\Resources\News\Schemas\NewsForm;
-use App\Filament\Resources\News\Tables\NewsTable;
 use App\Models\News;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Filament\Forms;
+use Filament\Tables;
+use Illuminate\Support\Str;
+use Filament\Forms\Set;
 
 class NewsResource extends Resource
 {
@@ -28,12 +30,78 @@ class NewsResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return NewsForm::configure($schema);
+        return $schema
+            ->components([
+                Forms\Components\TextInput::make('title')
+                    ->label('Judul Berita')
+                    ->required()
+                    ->maxLength(255)
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
+                    
+                Forms\Components\TextInput::make('slug')
+                    ->label('Slug')
+                    ->required()
+                    ->maxLength(255)
+                    ->unique(ignoreRecord: true)
+                    ->readOnly(),
+                    
+                Forms\Components\FileUpload::make('image')
+                    ->label('Gambar Berita')
+                    ->image()
+                    ->directory('news')
+                    ->required()
+                    ->columnSpanFull(),
+                    
+                Forms\Components\RichEditor::make('content')
+                    ->label('Konten Berita')
+                    ->required()
+                    ->columnSpanFull(),
+            ])
+            ->columns(2);
     }
 
     public static function table(Table $table): Table
     {
-        return NewsTable::configure($table);
+        return $table
+            ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Gambar'),
+                    
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Judul')
+                    ->searchable()
+                    ->sortable()
+                    ->wrap(),
+                    
+                Tables\Columns\TextColumn::make('slug')
+                    ->label('Slug')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                    
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Dibuat Oleh')
+                    ->sortable()
+                    ->searchable(),
+                    
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Tanggal Dibuat')
+                    ->dateTime('d M Y H:i')
+                    ->sortable(),
+            ])
+            ->filters([
+                //
+            ])
+            ->recordActions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+            ])
+            ->toolbarActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ])
+            ->defaultSort('created_at', 'desc');
     }
 
     public static function getRelations(): array

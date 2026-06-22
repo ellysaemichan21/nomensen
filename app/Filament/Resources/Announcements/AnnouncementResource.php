@@ -14,7 +14,7 @@ use Filament\Tables\Table;
 use Filament\Forms;
 use Filament\Tables;
 use Illuminate\Support\Str;
-use Filament\Forms\Set;
+use Filament\Schemas\Components\Utilities\Set;
 
 class AnnouncementResource extends Resource
 {
@@ -70,7 +70,9 @@ class AnnouncementResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Dibuat Oleh')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->badge()
+                    ->color('info'),
                     
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Tanggal Dibuat')
@@ -81,12 +83,12 @@ class AnnouncementResource extends Resource
                 //
             ])
             ->recordActions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                \Filament\Actions\EditAction::make(),
+                \Filament\Actions\DeleteAction::make(),
             ])
             ->toolbarActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                \Filament\Actions\BulkActionGroup::make([
+                    \Filament\Actions\DeleteBulkAction::make(),
                 ]),
             ])
             ->defaultSort('created_at', 'desc');

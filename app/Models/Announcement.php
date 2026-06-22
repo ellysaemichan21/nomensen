@@ -22,4 +22,12 @@ class Announcement extends Model
     {
         return $this->belongsTo(User::class, 'users_id');
     }
+
+    /**
+     * Mengubah kunci pencarian default untuk Route Model Binding ke kolom slug.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }

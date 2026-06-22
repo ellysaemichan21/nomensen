@@ -39,12 +39,11 @@ class AnnouncementResource extends Resource
                     ->live(onBlur: true)
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
                     
-                Forms\Components\TextInput::make('slug')
-                    ->label('Slug')
+                Forms\Components\Hidden::make('slug')
                     ->required()
-                    ->maxLength(255)
-                    ->unique(ignoreRecord: true)
-                    ->readOnly(),
+                    ->unique(ignoreRecord: true),
+                    
+                Forms\Components\Hidden::make('users_id'),
                     
                 Forms\Components\RichEditor::make('content')
                     ->label('Konten Pengumuman')

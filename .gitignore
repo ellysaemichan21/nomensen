@@ -34,3 +34,7 @@ Thumbs.db
 *.patch
 *.pdf
 /example text report
+*.md
+!README.md
+Pert*
+test_*.php
